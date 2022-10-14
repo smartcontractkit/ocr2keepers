@@ -23,7 +23,6 @@ func (k *keepers) Observation(ctx context.Context, rt types.ReportTimestamp, _ t
 	t := time.Now()
 
 	k.logger.Printf("sampling upkeeps for epoch %d and round %d", rt.Epoch, rt.Round)
-
 	results, err := k.service.SampleUpkeeps(ctx, k.filter.Filter())
 	if err != nil {
 		return nil, fmt.Errorf("%w: failed to sample upkeeps for observation", err)

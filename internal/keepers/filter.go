@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"math/big"
 	"runtime"
 	"sync"
 	"time"
@@ -58,8 +59,12 @@ func (rc *reportCoordinator) Filter() func(types.UpkeepKey) bool {
 		if err != nil {
 			return false
 		}
+		idInt := big.NewInt(0)
+		idInt.SetBytes(id)
+		fmt.Println("DEBUGGG: inside filter for id", idInt.String())
 
 		if _, ok := rc.idBlocks.Get(string(id)); ok {
+			fmt.Println("DEBUGGG: inside filter for id, got ok", idInt.String())
 			return false
 		}
 
@@ -77,7 +82,9 @@ func (rc *reportCoordinator) Accept(key types.UpkeepKey) error {
 	if err != nil {
 		return err
 	}
-
+	idInt := big.NewInt(0)
+	idInt.SetBytes(id)
+	fmt.Println("DEBUGGG: idBlock set for id", idInt.String())
 	rc.idBlocks.Set(string(id), true, defaultExpiration)
 	rc.activeKeys.Set(string(key), false, defaultExpiration)
 

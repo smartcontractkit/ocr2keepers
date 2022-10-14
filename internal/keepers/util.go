@@ -147,8 +147,15 @@ func sortedDedupedKeyList(attributed []types.AttributedObservation, filters ...f
 		sort.Sort(sortUpkeepKeys(ob))
 		kys[i] = ob
 	}
-
+	fmt.Println("DEBUGGG: within sortedDeduped")
+	for _, k := range kys {
+		fmt.Printf("DEBUGGG: within sortedDeduped %s", k)
+	}
 	keys, err := dedupe(kys, filters...)
+	fmt.Println("DEBUGGG: within sortedDeduped after filter")
+	for _, k := range keys {
+		fmt.Printf("DEBUGGG: within sortedDeduped after filter %s", k)
+	}
 	if err != nil {
 		return nil, fmt.Errorf("%w: observation dedupe", err)
 	}
